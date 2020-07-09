@@ -1,0 +1,17 @@
+module.exports = {
+  apps : [{
+    script: 'main.js',
+    watch: '.'
+  }],
+
+  deploy : {
+    production : {
+      user : '1050532303@qq.com',
+      host : '8.129.21.56',
+      ref  : 'origin/master',
+      repo : 'git@github.com:aaaaaaaaaaaahaohao/vuePress-blog.git',
+      path : '/blog',
+      'post-deploy' : 'npm install && pm2 reload ecosystem.config.js --env production'
+    }
+  }
+};
