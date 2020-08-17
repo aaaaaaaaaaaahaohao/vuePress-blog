@@ -1,30 +1,27 @@
 ## 小程序前端分页
-##### 问题背景：
+### 问题背景：
 ​        小程序setData性能比较差，通常情况下是进行了全部的数据重新渲染。通过将大量的数据分页，而不是将数据全部重新渲染一次解决性能问题。实际上是形成了一个二维数组，通过改变data变量（双向绑定数据）的内容，而不是改变data变量的指向来实现性能优化。
 
-##### 操作步骤:
+### 操作步骤:
 
-        ```
-1.在需要分页渲染的DOM结构改成双重循环的形式进行渲染
-2.引用paginationMixin
-3.需要在具体的页面中使用_data并添加以下属性
-  pageNum【数据当前页码】
-  totalPage【数据总页数】
-  pageSize【每页展示条数】
-  pagesData【分页前的总数据】
-4.在获取到数据源的位置进行数据处理，并对分页配置数据进行初始化
-5.还需要添加onReachBottom方法
-        ```
-
-##### 案例说明:
+    1.在需要分页渲染的DOM结构改成双重循环的形式进行渲染
+    2.引用paginationMixin
+    3.需要在具体的页面中使用_data并添加以下属性
+      pageNum【数据当前页码】
+      totalPage【数据总页数】
+      pageSize【每页展示条数】
+      pagesData【分页前的总数据】
+    4.在获取到数据源的位置进行数据处理，并对分页配置数据进行初始化
+    5.还需要添加onReachBottom方法
+### 案例说明:
 
 ​		这里使用百果园+小程序 搜索页进行案例说明(页面路径: /userA/pages/searchGoods/index)
 
-##### 		1.wxml在需要分页渲染的DOM结构改成双重循环的形式
+#### 		1.wxml在需要分页渲染的DOM结构改成双重循环的形式
 
 ![image.png](https://cdn.nlark.com/yuque/0/2020/png/1087407/1597112695091-c1f209b4-aa57-4b54-9710-e671c2152e2a.png)
 
-##### 		2.引用paginationMixin
+#### 		2.引用paginationMixin
 
 ```
 const paginationMixin = require('../../../mixins/paginationMixin')  //具体路径由具体情况而定
@@ -44,7 +41,7 @@ mixins: [paginationMixin]
   },
 ```
 
-##### 		4.在获取到数据源的位置进行数据处理，并对分页配置数据进行初始化
+#### 		4.在获取到数据源的位置进行数据处理，并对分页配置数据进行初始化
 
 ```
 // 数据源赋值给_data中的pagesData
@@ -55,7 +52,7 @@ this.resetPageConfig()
 this.loadData("goodsList")
 ```
 
-##### 		5.添加onReachBottom方法
+#### 		5.添加onReachBottom方法
 
 ```
  onReachBottom() {
@@ -68,9 +65,7 @@ this.loadData("goodsList")
 
 
 
-
-
-### 附（paginationMixin代码)：
+##### 附（paginationMixin代码)：
 
 ```
 // 前端分页mixin，优化大数据setData性能问题
