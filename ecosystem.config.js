@@ -6,7 +6,8 @@ module.exports = {
 
   deploy : {
     production : {
-      user : '1050532303@qq.com',
+      user : 'root',
+      port : '22',
       host : '8.129.21.56',
       ref  : 'origin/master',
       repo : 'git@github.com:aaaaaaaaaaaahaohao/vuePress-blog.git',
