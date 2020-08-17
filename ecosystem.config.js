@@ -12,7 +12,7 @@ module.exports = {
       ref  : 'origin/master',
       repo : 'git@github.com:aaaaaaaaaaaahaohao/vuePress-blog.git',
       path : '/blog',
-      'post-deploy' : 'npm install && npm run build && pm2 startOrRestart ecosystem.config.js --env production && git pull'
+      'post-deploy' : 'git pull && npm install && npm run build && pm2 startOrRestart ecosystem.config.js --env production'
     }
   }
 };
