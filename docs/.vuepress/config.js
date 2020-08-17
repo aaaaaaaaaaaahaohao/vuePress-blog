@@ -9,7 +9,14 @@ module.exports = {
   },
   themeConfig: {
     nav:[],
-    sidebar: [ {title: '前端基础', children: ['/document/aaa'] }], // 侧边栏配置
+    sidebar: [ 
+      {
+        title: '前端基础', children: []
+      },
+      {
+        title: '微信小程序', children: ['/document/大数据setData性能优化']
+      }
+    ], // 侧边栏配置
     sidebarDepth: 2, // 侧边栏显示2级
   }
 };
