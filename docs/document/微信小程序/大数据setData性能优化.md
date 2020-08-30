@@ -25,18 +25,7 @@ const paginationMixin = require('../../../mixins/paginationMixin')  //具体路�
 mixins: [paginationMixin]
 ```
 
-		##### 		3.需要在具体的页面中使用_data并添加以下属性
-
-```
-  _data: {
-    pageNum: 1, //【数据当前页码】，默认值为1(在mixin中展示数据时有做pageNum-1的处理)
-    pageSize: 20,  //【数据总页数】视具体需求可进行改动
-    pagesData: [],  // 【分页前的总数据】即数据源
-    totalPage: 0  //【数据总页数】用于判断翻页操作是否超过总页数
-  },
-```
-
-#### 		4.在获取到数据源的位置进行数据处理，并对分页配置数据进行初始化
+#### 		3.在获取到数据源的位置进行数据处理，并对分页配置数据进行初始化
 
 ```
 // 数据源赋值给_data中的pagesData
@@ -47,7 +36,7 @@ this.resetPageConfig()
 this.loadData("goodsList")
 ```
 
-#### 		5.添加onReachBottom方法
+#### 		4.添加onReachBottom方法
 
 ```
  onReachBottom() {
