@@ -14,10 +14,10 @@ module.exports = {
         title: '前端基础', children: []
       },
       {
-        title: '微信小程序', children: ['/document/大数据setData性能优化']
+        title: '微信小程序', children: ['/document/微信小程序/大数据setData性能优化']
       },
       {
-        title: '有趣实践', children: ['/document/搭建个人博客']
+        title: '有趣实践', children: ['/document/有趣实践/搭建个人博客']
       }
     ], // 侧边栏配置
     sidebarDepth: 2, // 侧边栏显示2级

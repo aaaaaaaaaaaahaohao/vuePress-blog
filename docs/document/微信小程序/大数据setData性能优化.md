@@ -6,13 +6,8 @@
 
     1.在需要分页渲染的DOM结构改成双重循环的形式进行渲染
     2.引用paginationMixin
-    3.需要在具体的页面中使用_data并添加以下属性
-      pageNum【数据当前页码】
-      totalPage【数据总页数】
-      pageSize【每页展示条数】
-      pagesData【分页前的总数据】
-    4.在获取到数据源的位置进行数据处理，并对分页配置数据进行初始化
-    5.还需要添加onReachBottom方法
+    3.在获取到数据源的位置进行数据处理，并对分页配置数据进行初始化
+    4.还需要添加onReachBottom方法
 ### 案例说明:
 
 ​		这里使用百果园+小程序 搜索页进行案例说明(页面路径: /userA/pages/searchGoods/index)
@@ -72,30 +67,52 @@ this.loadData("goodsList")
 /**
  * 1.在需要分页渲染的DOM结构改成双重循环的形式进行渲染
  * 2.引用paginationMixin
- * 3.需要在具体的页面中使用_data并添加以下属性
- * pageNum【数据当前页码】
- * totalPage【数据总页数】
- * pageSize【每页展示条数】
- * pagesData【分页前的总数据】
- * 4.在获取到数据源的位置进行数据处理，并对分页配置数据进行初始化
- * 5.还需要添加onReachBottom方法
+ * 3.在获取到数据源的位置进行数据处理，并对分页配置数据进行初始化
+ * 4.还需要添加onReachBottom方法
  */
 
 module.exports = {
+  pageConfig: {
+    pageNum: 1,
+    pageSize: 20,
+    pagesData: [],
+    totalPage: 0,
+    loadDataToPageNum: 0
+  },
   // 重置分页配置
   resetPageConfig(){
-    this._data.pageNum = 1
-    const {pageSize, pagesData} = this._data
-    this._data.totalPage = Math.ceil(pagesData.length / pageSize)
+    this.pageConfig.pageNum = 1
+    const {pageSize, pagesData} = this.pageConfig
+    this.pageConfig.totalPage = Math.ceil(pagesData.length / pageSize)
   },
   // 加载分页数据
   loadData(varName) {
-    const {pageSize, pageNum, totalPage, pagesData} = this._data
+    const {pageSize, pageNum, totalPage, pagesData} = this.pageConfig
     const currentPageData = pagesData.slice((pageNum - 1)*pageSize, pageNum * pageSize)
     pageNum === 1 && this.setData({[`${varName}`]: []})
     pageNum <= totalPage && this.setData({
       [`${varName}[${pageNum-1}]`]: currentPageData
     })
+  },
+  // 根据数组对象的id去查找对应的页码并加载到该页面
+  findPageNumByItemId(varName, ItemId){
+    const {pageSize, pagesData} = this.pageConfig
+    const itemIndex = pagesData.findIndex(item =>{
+      return Number(item[varName]) === Number(ItemId)
+    })
+    console.log('itemIndex', itemIndex)
+    if(itemIndex !== -1){
+      this.pageConfig.loadDataToPageNum = Math.ceil((itemIndex + 1)/pageSize)
+    }
+    console.log('loadDataToPageNum', this.pageConfig.loadDataToPageNum)
+  },
+  // 根据页码连续加载数据到对应的页面
+  loadDataToSpecificPage(varName) {
+    for(let i=1; i <= this.pageConfig.loadDataToPageNum; i++){
+      this.pageConfig.pageNum = i
+      this.loadData(varName)
+    }
+    console.log('allData', this.data[varName])
   }
 }
 ```
